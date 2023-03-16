@@ -1,25 +1,25 @@
 package com.skypro.employeebook.servise;
-
 import com.skypro.employeebook.exception.EmployeeNotFoundException;
 import com.skypro.employeebook.model.Employee;
 import com.skypro.employeebook.exception.EmployeeAlreadyAddedException;
 import com.skypro.employeebook.exception.EmployeeStorageIsFullException;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+
 
 @Service
 public class EmployeeService implements EmployeeServiceInterface {
-    private final int MAX_COUNT = 2;
+    private final int MAX_COUNT = 3;
     private final Map<Integer, Employee> employees = new HashMap<>();
 
     @Override
-    public Employee addEmployee(String firstName, String lastName, Integer passport) {
+    public Employee addEmployee(String firstName, String lastName,
+                                Integer passport, double salary, Integer department) {
         if (employees.size() == MAX_COUNT) {
             throw new EmployeeStorageIsFullException(employees.size());
         }
-        Employee employee = new Employee(firstName, lastName, passport);
+        Employee employee = new Employee(firstName, lastName, passport, salary, department);
         if (employees.containsKey(passport)) {
             throw new EmployeeAlreadyAddedException(firstName, lastName);
         }
@@ -46,8 +46,11 @@ public class EmployeeService implements EmployeeServiceInterface {
         return String.format("Сотрудник %s %s удален", employee.getFirstName(), employee.getLastName());
     }
 
+
+
+
     @Override
-    public Map<Integer, Employee> printAllEmployees() {
+    public Map<Integer, Employee> getAllEmployees() {
         return employees;
     }
 
