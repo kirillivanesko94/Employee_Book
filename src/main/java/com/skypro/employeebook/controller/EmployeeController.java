@@ -1,4 +1,5 @@
 package com.skypro.employeebook.controller;
+import com.skypro.employeebook.exception.EmployeeValidFullNameException;
 import com.skypro.employeebook.model.Employee;
 import com.skypro.employeebook.exception.EmployeeAlreadyAddedException;
 import com.skypro.employeebook.exception.EmployeeNotFoundException;
@@ -13,7 +14,7 @@ import java.util.Map;
 
 public class EmployeeController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler({EmployeeStorageIsFullException.class, EmployeeAlreadyAddedException.class})
+    @ExceptionHandler({EmployeeStorageIsFullException.class, EmployeeAlreadyAddedException.class, EmployeeValidFullNameException.class})
     public String handleException(RuntimeException e) {
         return String.format("%s %s", HttpStatus.BAD_REQUEST.value(), e.getMessage());
     }
@@ -34,7 +35,7 @@ public class EmployeeController {
                         @RequestParam("lastName") String lastName,
                         @RequestParam("passport") Integer passport,
                         @RequestParam("salary") double salary,
-                        @RequestParam("department") Integer department){
+                        @RequestParam("department") Integer department)  {
 
         return employeeServiceInterface.addEmployee(firstName, lastName, passport, salary, department);
     }
