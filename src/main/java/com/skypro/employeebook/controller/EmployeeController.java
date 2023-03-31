@@ -4,7 +4,7 @@ import com.skypro.employeebook.model.Employee;
 import com.skypro.employeebook.exception.EmployeeAlreadyAddedException;
 import com.skypro.employeebook.exception.EmployeeNotFoundException;
 import com.skypro.employeebook.exception.EmployeeStorageIsFullException;
-import com.skypro.employeebook.servise.EmployeeServiceInterface;
+import com.skypro.employeebook.servise.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
@@ -24,9 +24,9 @@ public class EmployeeController {
     public String handleException (EmployeeNotFoundException e){
         return String.format("%s %s", HttpStatus.NOT_FOUND.value(), e.getMessage());
     }
-    private final EmployeeServiceInterface employeeServiceInterface;
+    private final EmployeeService employeeServiceInterface;
 
-    public EmployeeController(EmployeeServiceInterface employeeServiceInterface) {
+    public EmployeeController(EmployeeService employeeServiceInterface) {
         this.employeeServiceInterface = employeeServiceInterface;
     }
 

@@ -1,44 +1,21 @@
 package com.skypro.employeebook.servise;
+
 import com.skypro.employeebook.model.Employee;
-import org.springframework.stereotype.Service;
-import java.util.*;
-import java.util.stream.Collectors;
 
+import java.util.List;
+import java.util.Map;
 
-@Service
-public class DepartmentService implements DepartmentServiceInterface {
-    private final EmployeeService employeeService;
+public interface DepartmentService {
 
-    public DepartmentService(EmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
+    List<Employee> getAllEmployeeByDepartment(Integer department);
 
-    @Override
-    public Map<Integer, List<Employee>> getAllEmployeeByDepartment(Integer department) {
+    Map<Integer, List<Employee>> getAllEmployees();
 
-        return employeeService.getAllEmployees()
-                .entrySet()
-                .stream()
-                .filter(employee -> department == null || employee.getValue().getDepartment().equals(department))
-                .collect(Collectors.groupingBy(e -> e.getValue().getDepartment(), Collectors.mapping(Map.Entry::getValue, Collectors.toList())));
-    }
+    double getMaxSalaryInDepartment(Integer department);
 
-    @Override
-    public Optional<Employee> getMaxSalaryInDepartment(Integer department) {
-        return employeeService.getAllEmployees()
-                .values()
-                .stream()
-                .filter(e -> e.getDepartment().equals(department))
-                .max(Comparator.comparing(e -> e.getSalary()));
-    }
+    double getMinSalaryInDepartment(Integer department);
 
-    @Override
-    public Optional<Employee> getMinSalaryInDepartment(Integer department) {
-        return employeeService.getAllEmployees()
-                .values()
-                .stream()
-                .filter(e -> e.getDepartment().equals(department))
-                .min(Comparator.comparing(e -> e.getSalary()));
-    }
+    double getSumSalaryInDepartment(Integer department);
+
 
 }
