@@ -4,6 +4,9 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Objects;
 
+/**
+ * A class representing the employee entity
+ */
     public class Employee {
         private final String firstName;
         private final String lastName;

@@ -1,6 +1,10 @@
-package com.skypro.employeebook.servise;
+package com.skypro.employeebook.service;
 import com.skypro.employeebook.model.Employee;
 import java.util.Map;
+
+/**
+ * The EmployeeServiceInterface interface provides methods for managing employees.
+ */
 public interface  EmployeeServiceInterface {
 
     Employee addEmployee(String firstName, String lastName,
